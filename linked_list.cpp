@@ -68,44 +68,33 @@ struct LinkedList{
         }
         cout << endl;
     }
-    
+
     void del_back(){
-        Node *t = first;
-      if(size == 0){
-            cout << 0 << endl;
+        if(size != 0){
+            Node *tmp = last;
+            last = nullptr;
+            last = tmp->r;
+            size --;
         }
-        else {
-            while(t->r != last->l){
-            t = t->r;
-        }
-        t=t->r;
-        t->r=nullptr;
-        }
-        size--;
     }
-    
+
     void del_front(){
-        first->l = nullptr;
-        first = first->r;
-        size --;
-    }
-    
-    void begin(){
-        Node *t = first;
-        while(t->l != nullptr){
-            t = t->l;
+        if(size != 0){
+            Node *tmp = first;
+            first = nullptr;
+            first = tmp->l;
+            size --;
         }
-        cout << t->val << endl;
     }
-    
-    void end(){
-        Node *t = first;
-        while(t->r != nullptr){
-            t = t->r;
-        }
-        cout << t->val << endl;
+
+    int begin(){
+        return first -> val;
     }
-    
+
+    int end(){
+        return last -> val;
+    }
+
     void bol(){
          Node *t = first;
          int max = 0;
@@ -115,7 +104,7 @@ struct LinkedList{
         }
         cout << max << endl;
     }
-    
+
     void mal(){
          Node *t = first;
          int min = 2000000000;
@@ -125,11 +114,11 @@ struct LinkedList{
         }
         cout << min << endl;
     }
-    
+
     void len(){
     cout << size << endl;
     }
-    
+
     void isEmpty(int el){
         Node *t = first;
         while(t != nullptr){
@@ -150,7 +139,44 @@ int toInt(string s){
 }
 
 int main(){
-    
-    
-    
+
+    LinkedList *l = new LinkedList();
+
+    int n;
+    cin >> n;
+
+    vector<int> ans;
+
+    for(int i = 0; i < n; i++){
+
+        int c;
+        cin >> c;
+
+        if(c == 1){
+            int s;
+            cin >> s;
+            l->addFront(s);
+        }
+        if(c == 2){
+            int s;
+            cin >> s;
+            l->addBack(s);
+        }
+        if(c == 3){
+            int u = l->begin();
+            ans.push_back(u);
+            l->del_front();
+        }
+        if(c == 4){
+            int u = l->end();
+            ans.push_back(u);
+            l->del_back();
+        }
+
+    }
+
+    for(int i = 0; i < ans.size(); i++){
+        cout << ans[i] << " ";
+    }
+
 }
